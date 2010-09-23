@@ -179,10 +179,10 @@ static int ANDROIDAUD_OpenAudio (_THIS, SDL_AudioSpec *spec)
 		audioFormat->samples = 32768;
 		__android_log_print(ANDROID_LOG_INFO, "libSDL", "ANDROIDAUD_OpenAudio(): limiting samples size to ", (int)audioFormat->samples);
 	}
-	
-	SDL_CalculateAudioSpec(spec);
-	
-	
+
+	SDL_CalculateAudioSpec(audioFormat);
+
+
 	(*jniVM)->AttachCurrentThread(jniVM, &jniEnv, NULL);
 
 	if( !jniEnv )
@@ -192,8 +192,8 @@ static int ANDROIDAUD_OpenAudio (_THIS, SDL_AudioSpec *spec)
 	}
 
 	// The returned audioBufferSize may be huge, up to 100 Kb for 44100 because user may have selected large audio buffer to get rid of choppy sound
-	audioBufferSize = (*jniEnv)->CallIntMethod( jniEnv, JavaAudioThread, JavaInitAudio, 
-					(jint)audioFormat->freq, (jint)audioFormat->channels, 
+	audioBufferSize = (*jniEnv)->CallIntMethod( jniEnv, JavaAudioThread, JavaInitAudio,
+					(jint)audioFormat->freq, (jint)audioFormat->channels,
 					(jint)(( bytesPerSample == 2 ) ? 1 : 0), (jint)(audioFormat->size) );
 
 	if( audioBufferSize == 0 )
@@ -211,7 +211,7 @@ static int ANDROIDAUD_OpenAudio (_THIS, SDL_AudioSpec *spec)
 	__android_log_print(ANDROID_LOG_INFO, "libSDL", "ANDROIDAUD_OpenAudio(): app opened audio bytespersample %d freq %d channels %d bufsize %d", bytesPerSample, audioFormat->freq, (int)audioFormat->channels, audioBufferSize);
 
 	SDL_CalculateAudioSpec(audioFormat);
-	
+
 #if SDL_VERSION_ATLEAST(1,3,0)
 	return(1);
 #else
@@ -229,12 +229,12 @@ static void ANDROIDAUD_CloseAudio(_THIS)
 	audioBufferJNI = NULL;
 	audioBuffer = NULL;
 	audioBufferSize = 0;
-	
+
 	(*jniEnv)->CallIntMethod( jniEnv, JavaAudioThread, JavaDeinitAudio );
 
 	/* We cannot call DetachCurrentThread() from main thread or we'll crash */
 	/* (*jniVM)->DetachCurrentThread(jniVM); */
-	
+
 }
 
 /* This function waits until it is possible to write a full sound buffer */
