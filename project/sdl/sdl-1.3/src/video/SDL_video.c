@@ -3038,7 +3038,7 @@ SDL_GL_LoadLibrary(const char *path)
         retval = 0;
     } else {
         if (!_this->GL_LoadLibrary) {
-            SDL_SetError("No dynamic GL support in video driver");
+            SDL_SetError("No dynamic GL support in video driver %s", path);
             return -1;
         }
         retval = _this->GL_LoadLibrary(_this, path);

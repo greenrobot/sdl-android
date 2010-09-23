@@ -360,7 +360,7 @@ GLES_ActivateRenderer(SDL_Renderer * renderer)
                        0.0, 0.0, 1.0);
 #else
         data->glViewport(0, 0, window->w, window->h);
-        data->glOrthof(0.0, (GLfloat) window->w, (GLfloat) window->h, 
+        data->glOrthof(0.0, (GLfloat) window->w, (GLfloat) window->h,
                        0.0, 0.0, 1.0);
 #endif
         data->updateSize = SDL_FALSE;
@@ -442,7 +442,7 @@ GLES_CreateTexture(SDL_Renderer * renderer, SDL_Texture * texture)
         break;
 #endif
     default:
-        SDL_SetError("Unsupported by OpenGL ES texture format");
+        SDL_SetError("Unsupported by OpenGL ES texture format %d", texture->format);
         return -1;
     }
 
@@ -753,7 +753,7 @@ GLES_RenderDrawLines(SDL_Renderer * renderer, const SDL_Point * points,
     }
     data->glVertexPointer(2, GL_SHORT, 0, vertices);
     data->glEnableClientState(GL_VERTEX_ARRAY);
-    if (count > 2 && 
+    if (count > 2 &&
         points[0].x == points[count-1].x && points[0].y == points[count-1].y) {
         /* GL_LINE_LOOP takes care of the final segment */
         --count;
@@ -874,7 +874,7 @@ GLES_RenderCopy(SDL_Renderer * renderer, SDL_Texture * texture,
             pixels =
                 (void *) ((Uint8 *) texturedata->pixels + rect->y * pitch +
                           rect->x * bpp);
-            /*      There is no GL_UNPACK_ROW_LENGTH in OpenGLES 
+            /*      There is no GL_UNPACK_ROW_LENGTH in OpenGLES
                we must do this reformatting ourselves(!)
 
                maybe it'd be a good idea to keep a temp buffer around

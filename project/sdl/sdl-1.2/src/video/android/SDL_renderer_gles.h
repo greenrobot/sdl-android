@@ -1,1 +1,0 @@
-../../../../sdl-1.3/src/video/SDL_renderer_gles.h

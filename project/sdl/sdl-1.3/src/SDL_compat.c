@@ -30,6 +30,8 @@
 #include "video/SDL_pixels_c.h"
 #include "video/SDL_yuv_sw_c.h"
 
+#include <android/log.h>
+
 static SDL_Window *SDL_VideoWindow = NULL;
 static SDL_RendererInfo SDL_VideoRendererInfo;
 static SDL_Texture *SDL_VideoTexture = NULL;
@@ -1581,8 +1583,9 @@ SDL_CreateYUVOverlay(int w, int h, Uint32 format, SDL_Surface * display)
         break;
     }
 
-    overlay->hwdata->texture =
-        SDL_CreateTexture(texture_format, SDL_TEXTUREACCESS_STREAMING, w, h);
+    overlay->hwdata->texture = NULL;
+//        SDL_CreateTexture(texture_format, SDL_TEXTUREACCESS_STREAMING, w, h);
+
     if (overlay->hwdata->texture) {
         overlay->hwdata->sw = NULL;
     } else {
@@ -1689,6 +1692,8 @@ SDL_DisplayYUVOverlay(SDL_Overlay * overlay, SDL_Rect * dstrect)
     if (SDL_RenderCopy(overlay->hwdata->texture, NULL, dstrect) < 0) {
         return -1;
     }
+    __android_log_print(ANDROID_LOG_INFO, "SDL","%s", "DISPLAY");
+
     SDL_RenderPresent();
     return 0;
 }
