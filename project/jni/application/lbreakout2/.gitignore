@@ -1,5 +1,0 @@
-*.o
-Makefile
-config.log
-*.a
-*.so
