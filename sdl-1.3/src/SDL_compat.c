@@ -1692,8 +1692,6 @@ SDL_DisplayYUVOverlay(SDL_Overlay * overlay, SDL_Rect * dstrect)
     if (SDL_RenderCopy(overlay->hwdata->texture, NULL, dstrect) < 0) {
         return -1;
     }
-    __android_log_print(ANDROID_LOG_INFO, "SDL","%s", "DISPLAY");
-
     SDL_RenderPresent();
     return 0;
 }
