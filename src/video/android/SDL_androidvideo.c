@@ -65,7 +65,7 @@ int SDL_ANDROID_CallJavaSwapBuffers()
 
 
 JNIEXPORT void JNICALL 
-JAVA_EXPORT_NAME(DemoRenderer_nativeResize) ( JNIEnv*  env, jobject  thiz, jint w, jint h )
+JAVA_EXPORT_NAME(SDLRenderer_nativeResize) ( JNIEnv*  env, jobject  thiz, jint w, jint h )
 {
     SDL_ANDROID_sWindowWidth  = w;
     SDL_ANDROID_sWindowHeight = h;
@@ -73,7 +73,7 @@ JAVA_EXPORT_NAME(DemoRenderer_nativeResize) ( JNIEnv*  env, jobject  thiz, jint 
 }
 
 JNIEXPORT void JNICALL 
-JAVA_EXPORT_NAME(DemoRenderer_nativeDone) ( JNIEnv*  env, jobject  thiz )
+JAVA_EXPORT_NAME(SDLRenderer_nativeDone) ( JNIEnv*  env, jobject  thiz )
 {
 	__android_log_print(ANDROID_LOG_INFO, "libSDL", "quitting...");
 #if SDL_VERSION_ATLEAST(1,3,0)
@@ -85,7 +85,7 @@ JAVA_EXPORT_NAME(DemoRenderer_nativeDone) ( JNIEnv*  env, jobject  thiz )
 }
 
 JNIEXPORT void JNICALL 
-JAVA_EXPORT_NAME(DemoRenderer_nativeInitJavaCallbacks) ( JNIEnv*  env, jobject thiz )
+JAVA_EXPORT_NAME(SDLRenderer_nativeInitJavaCallbacks) ( JNIEnv*  env, jobject thiz )
 {
 	JavaEnv = env;
 	JavaRenderer = thiz;

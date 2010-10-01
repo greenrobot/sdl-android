@@ -48,7 +48,7 @@ static int TrackballDampening = 0; // in milliseconds
 static int lastTrackballAction = 0;
 
 JNIEXPORT void JNICALL 
-JAVA_EXPORT_NAME(DemoGLSurfaceView_nativeMouse) ( JNIEnv*  env, jobject  thiz, jint x, jint y, jint action, jint pointerId, jint force, jint radius )
+JAVA_EXPORT_NAME(SDLSurfaceView_nativeMouse) ( JNIEnv*  env, jobject  thiz, jint x, jint y, jint action, jint pointerId, jint force, jint radius )
 {
 	if(pointerId < 0)
 		pointerId = 0;
@@ -120,7 +120,7 @@ JAVA_EXPORT_NAME(DemoGLSurfaceView_nativeMouse) ( JNIEnv*  env, jobject  thiz, j
 static int processAndroidTrackball(int key, int action);
 
 JNIEXPORT void JNICALL 
-JAVA_EXPORT_NAME(DemoGLSurfaceView_nativeKey) ( JNIEnv*  env, jobject thiz, jint key, jint action )
+JAVA_EXPORT_NAME(SDLSurfaceView_nativeKey) ( JNIEnv*  env, jobject thiz, jint key, jint action )
 {
 	if( isTrackballUsed )
 		if( processAndroidTrackball(key, action) )
